@@ -1,9 +1,15 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Kanit } from "next/font/google";
 import { ThirdwebProvider } from "components/ThirdWebProvider";
+import Navbar from "components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+// ["300", "400", "500", "600", "700", "900"];
+
+const inter = Kanit({
+  weight: ["300", "400", "500", "600", "700", "900"],
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Web3 Projects by Tomster",
@@ -21,7 +27,8 @@ export default function RootLayout({
         clientId={process.env.NEXT_PUBLIC_CLIENT_ID}
         activeChain="base-goerli"
       >
-        <body className={`${inter.className} bg-black text-white`}>
+        <body className={`${inter.className}`}>
+          <Navbar />
           {children}
         </body>
       </ThirdwebProvider>

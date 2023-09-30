@@ -1,15 +1,9 @@
-"use client";
-
-import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
-
 export default function Home() {
-  const address = useAddress();
-  console.log(address);
-
   return (
-    <main className="container mx-auto max-w-screen-xl px-4">
-      <h1 className="">Web3 Projects</h1>
-      <ConnectWallet />
+    <main className="container py-sm md:py-md">
+      <h1 className="pb-2 mx-auto text-4xl font-medium text-center shadow-sm md:text-5xl lg:text-6xl bg-gradient-to-br text-gradient-blue w-max">
+        Web3 Projects
+      </h1>
     </main>
   );
 }
