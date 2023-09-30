@@ -7,7 +7,7 @@
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
-    --gradient-start: rgb(17, 24, 39);
+    --gradient-start: rgb(22, 30, 49);
     --gradient-stop: hsl(var(--background));
 
     --card: 222.2 84% 4.9%;
@@ -39,12 +39,13 @@
     --space-sm: 1rem;
     --space-md: 1.5rem;
     --space-lg: 2rem;
+    --space-xl: 2.5rem;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply transition-all ease-in-out border-border;
   }
 
   html,
@@ -53,7 +54,11 @@
   }
 
   body {
-    @apply tracking-wider bg-gradient-to-t from-gradient-start to-gradient-stop text-foreground;
+    @apply tracking-wider bg-fixed bg-gradient-to-t from-gradient-start to-gradient-stop text-foreground;
+  }
+
+  .container {
+    @apply px-sm md:px-md lg:px-lg xl:px-xl;
   }
 }
 
