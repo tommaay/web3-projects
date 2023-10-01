@@ -13,7 +13,7 @@ import {
 export default function Home() {
   return (
     <main className="container py-sm md:py-md">
-      <h1 className="pb-2 text-4xl font-medium md:text-5xl lg:text-6xl bg-gradient-to-br text-gradient-blue w-max">
+      <h1 className="pb-2 text-4xl font-medium md:text-5xl lg:text-6xl bg-gradient-to-br text-gradient-blue">
         Web3 Projects
       </h1>
       <p className="pt-2 font-medium text:lg md:text-xl">
@@ -22,7 +22,7 @@ export default function Home() {
 
       <div className="grid justify-center gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-lg">
         <ContractCard href="/erc20" contractAddress={ERC20_CONTRACT} />
-        <ContractCard href="/erc721a" contractAddress={ERC721A_CONTRACT} />
+        <ContractCard href="/cypher-chicks" contractAddress={ERC721A_CONTRACT} />
         <ContractCard href="/erc1155" contractAddress={ERC1155_CONTRACT} />
         <ContractCard
           href="/coinflip"
@@ -38,10 +38,7 @@ export default function Home() {
           description="A smart contract to buy a friend a coffee by sending Eth."
           imageUrl="/hot_cup_of_coffee.png"
         />
-        <ContractCard
-          href="/current-mood"
-          contractAddress={CURRENT_MOOD_CONTRACT}
-        />
+        <ContractCard href="/current-mood" contractAddress={CURRENT_MOOD_CONTRACT} />
         <ContractCard
           href="/message-board"
           contractAddress={MESSAGE_BOARD_CONTRACT}

@@ -2,17 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "components/ui/Card";
-import {
-  useContract,
-  useContractMetadata,
-  MediaRenderer,
-} from "@thirdweb-dev/react";
+import { Card, CardDescription, CardHeader, CardTitle } from "components/ui/Card";
+import { useContract, useContractMetadata, MediaRenderer } from "@thirdweb-dev/react";
 import { SpinnerRoundFilled } from "spinners-react";
 
 type ContractCardProps = {
@@ -34,14 +25,12 @@ function ContractCard({
   altText = "This contract has no image text.",
   style,
 }: ContractCardProps) {
-  const { contract, isLoading: contractIsLoading } =
-    useContract(contractAddress);
-  const { data: metadata, isLoading: metadataIsLoading } =
-    useContractMetadata(contract);
+  const { contract, isLoading: contractIsLoading } = useContract(contractAddress);
+  const { data: metadata, isLoading: metadataIsLoading } = useContractMetadata(contract);
 
   return (
     <Link href={href}>
-      <Card className="h-full max-w-xs overflow-hidden rounded-xl hover:scale-105 bg-zinc-900/20">
+      <Card className="h-full max-w-xs overflow-hidden rounded hover:scale-105 bg-zinc-900/20">
         <div className="relative flex items-center justify-center h-48 md:h-64">
           {contractIsLoading || metadataIsLoading ? (
             <SpinnerRoundFilled size={86} color="#fff" />
@@ -76,9 +65,7 @@ function ContractCard({
         {!contractIsLoading && !metadataIsLoading && (
           <CardHeader>
             <CardTitle>{title || metadata?.name}</CardTitle>
-            <CardDescription>
-              {description || metadata?.description}
-            </CardDescription>
+            <CardDescription>{description || metadata?.description}</CardDescription>
           </CardHeader>
         )}
       </Card>
