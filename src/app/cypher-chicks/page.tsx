@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  MediaRenderer,
+  ThirdwebNftMedia,
   useAddress,
   useClaimedNFTSupply,
   useContract,
@@ -142,8 +142,8 @@ const CypherChicksPage = () => {
               <div key={nft.metadata.id}>
                 <Card className="h-full max-w-xs overflow-hidden rounded bg-zinc-900/20">
                   <div className="relative flex items-center justify-center h-48 md:h-64">
-                    <MediaRenderer
-                      src={nft.metadata.image}
+                    <ThirdwebNftMedia
+                      metadata={nft.metadata}
                       width="100%"
                       height="100%"
                       style={{
