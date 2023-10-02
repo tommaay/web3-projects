@@ -3,7 +3,6 @@
 import {
   useAddress,
   useContract,
-  useContractMetadata,
   useTokenSupply,
   useTokenBalance,
   Web3Button,
@@ -17,15 +16,13 @@ import Link from "next/link";
 const Erc20Page = () => {
   const address = useAddress();
   const { contract, isLoading: contractIsLoading } = useContract(ERC20_CONTRACT);
-  const { isLoading: metadataIsLoading } = useContractMetadata(contract);
   const { data: tokenSupply, isLoading: tokenSupplyIsLoading } = useTokenSupply(contract);
   const { data: tokenBalance, isLoading: tokenBalanceIsLoading } = useTokenBalance(
     contract,
     address
   );
 
-  const isLoading =
-    contractIsLoading || metadataIsLoading || tokenSupplyIsLoading || tokenBalanceIsLoading;
+  const isLoading = contractIsLoading || tokenSupplyIsLoading || tokenBalanceIsLoading;
 
   return (
     <main className="container py-sm md:py-md">
@@ -35,10 +32,10 @@ const Erc20Page = () => {
         imageUrl="/tomster.svg"
         altText="Tomster's ERC20 token"
         style={{ objectFit: "contain", background: "#fff" }}
-        isLoading={contractIsLoading || metadataIsLoading}
+        isLoading={contractIsLoading}
       />
 
-      {isLoading ? (
+      {address && isLoading ? (
         <SpinnerRoundFilled color="#fff" className="mx-auto mt-10" />
       ) : (
         <div className="grid grid-cols-1 gap-8 pt-12 sm:grid-cols-3">
@@ -57,31 +54,44 @@ const Erc20Page = () => {
               </CardDescription>
             </CardHeader>
           </Card>
+
           <Card className="h-full rounded">
             <CardHeader className="flex flex-col justify-between h-full">
               <CardTitle>
                 <h2>Your token balance</h2>
               </CardTitle>
               <div className="flex flex-col justify-between flex-1 gap-4">
-                <CardDescription>
-                  <p className="text-lg font-medium whitespace-nowrap">
-                    {tokenBalance?.displayValue
-                      ? Number(tokenBalance?.displayValue).toLocaleString()
-                      : 0}{" "}
-                    {tokenSupply?.symbol}
-                  </p>
-                </CardDescription>
+                {address ? (
+                  <>
+                    <CardDescription>
+                      <p className="text-lg font-medium whitespace-nowrap">
+                        {tokenBalance?.displayValue
+                          ? Number(tokenBalance?.displayValue).toLocaleString()
+                          : 0}{" "}
+                        {tokenSupply?.symbol}
+                      </p>
+                    </CardDescription>
 
-                <Web3Button
-                  contractAddress={ERC20_CONTRACT}
-                  action={(contract) => contract.erc20.burn(25)}
-                  className="transition-all ease-in-out hover:bg-slate-500 hover:text-white"
-                >
-                  Burn 25 tokens
-                </Web3Button>
+                    <Web3Button
+                      style={{ width: "100%", transition: "all 0.2s ease-in-out" }}
+                      className="hover:bg-slate-500 hover:text-white"
+                      contractAddress={ERC20_CONTRACT}
+                      action={(contract) => contract.erc20.burn(25)}
+                    >
+                      Burn 25 tokens
+                    </Web3Button>
+                  </>
+                ) : (
+                  <CardDescription>
+                    <p className="text-lg font-medium">
+                      Please connect your wallet to check your token balance
+                    </p>
+                  </CardDescription>
+                )}
               </div>
             </CardHeader>
           </Card>
+
           <Card className="h-full rounded">
             <CardHeader>
               <CardTitle>
@@ -97,13 +107,13 @@ const Erc20Page = () => {
                   href="/staking"
                   className="lg:flex-1 text-black bg-white rounded-[8px] h-11 flex items-center justify-center transition-all ease-in-out hover:bg-slate-500 hover:text-white"
                 >
-                  Stake
+                  Stake &rarr;
                 </Link>
                 <Link
                   href="/cypher-chicks"
                   className="lg:flex-1 text-black bg-white rounded-[8px] h-11 flex items-center transition-all ease-in-out hover:bg-slate-500 hover:text-white justify-center"
                 >
-                  Mint NFTs
+                  Mint NFTs &rarr;
                 </Link>
               </div>
             </CardContent>

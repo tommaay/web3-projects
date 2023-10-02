@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import { ThirdwebProvider } from "components/ThirdWebProvider";
 import Navbar from "components/Navbar";
+import { Toaster } from "components/ui/Toaster";
 
 const inter = Kanit({
   weight: ["300", "400", "500", "600", "700", "900"],
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body className={`${inter.className}`}>
           <Navbar />
           {children}
+          <Toaster />
         </body>
       </ThirdwebProvider>
     </html>
