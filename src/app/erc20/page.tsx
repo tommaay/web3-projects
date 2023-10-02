@@ -38,7 +38,7 @@ const Erc20Page = () => {
       {address && isLoading ? (
         <SpinnerRoundFilled color="#fff" className="mx-auto mt-10" />
       ) : (
-        <div className="grid grid-cols-1 gap-8 pt-12 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 pt-12 md:gap-8 sm:grid-cols-3">
           <Card className="h-full rounded">
             <CardHeader>
               <CardTitle>

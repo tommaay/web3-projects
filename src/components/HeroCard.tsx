@@ -29,7 +29,7 @@ function HeroCard({ title, description, imageUrl, altText, style = {}, isLoading
       </div>
       <CardHeader>
         <div className="flex-1 min-h-[160px]">
-          <h1 className="pb-2 text-4xl font-medium md:text-5xl lg:text-6xl bg-gradient-to-br text-gradient-blue">
+          <h1 className="pb-2 text-3xl font-medium md:text-4xl bg-gradient-to-br text-gradient-blue">
             {title}
           </h1>
           <p className="pt-2 font-medium text:lg md:text-xl">{description}</p>

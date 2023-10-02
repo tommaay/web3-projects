@@ -3,7 +3,7 @@
 import {
   ThirdwebNftMedia,
   useAddress,
-  useClaimedNFTSupply,
+  useTotalCirculatingSupply,
   useContract,
   useContractMetadata,
   useOwnedNFTs,
@@ -13,33 +13,37 @@ import {
 import HeroCard from "components/HeroCard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "components/ui/Card";
 import { SpinnerRoundFilled } from "spinners-react";
-import { ERC721A_CONTRACT } from "@/constants";
+import { ERC1155_CONTRACT } from "@/constants";
 import Link from "next/link";
 import { useToast } from "components/ui/useToast";
 
-const CypherChicksPage = () => {
+const Erc1155Page = () => {
   const address = useAddress();
-  const { contract, isLoading: contractIsLoading } = useContract(
-    ERC721A_CONTRACT,
-    "signature-drop"
-  );
+  const { contract, isLoading: contractIsLoading } = useContract(ERC1155_CONTRACT);
   const { isLoading: metadataIsLoading } = useContractMetadata(contract);
   const { data: totalSupply, isLoading: totalSupplyIsLoading } = useTotalCount(contract);
-  const { data: totalClaimed, isLoading: totalClaimedIsLoading } = useClaimedNFTSupply(contract);
+  const { data: totalCirculatingOne, isLoading: totalCirculatingOneIsLoading } =
+    useTotalCirculatingSupply(contract, 0);
+  const { data: totalCirculatingTwo, isLoading: totalCirculatingTwoIsLoading } =
+    useTotalCirculatingSupply(contract, 0);
   const { data: ownedNfts } = useOwnedNFTs(contract, address);
 
   const isLoading =
-    contractIsLoading || metadataIsLoading || totalSupplyIsLoading || totalClaimedIsLoading;
+    contractIsLoading ||
+    metadataIsLoading ||
+    totalSupplyIsLoading ||
+    totalCirculatingOneIsLoading ||
+    totalCirculatingTwoIsLoading;
 
   const { toast } = useToast();
 
   return (
     <main className="container py-sm md:py-md">
       <HeroCard
-        title="Cypher Chicks NFTs"
-        description="Cypherpunk Chicks. A testnet ERC721A NFT contract."
-        imageUrl="/cypherpunk_anime_girl_1.png"
-        altText="Cypher Chicks NFT"
+        title="Cypher Dudes NFTs ERC1155"
+        description="Cyperpunk Dudes. A test ERC1155 contract."
+        imageUrl="/cypherpunk_guy_with_swords_1.png"
+        altText="Cypher Dudes NFT"
         isLoading={contractIsLoading || metadataIsLoading}
       />
 
@@ -54,7 +58,7 @@ const CypherChicksPage = () => {
               </CardTitle>
               <CardDescription>
                 <p className="text-lg font-medium">
-                  Total supply:{" "}
+                  Number of NFT types:{" "}
                   {totalSupplyIsLoading ? (
                     <SpinnerRoundFilled color="#fff" />
                   ) : (
@@ -62,11 +66,19 @@ const CypherChicksPage = () => {
                   )}
                 </p>
                 <p className="text-lg font-medium">
-                  Total claimed:{" "}
-                  {totalSupplyIsLoading ? (
+                  Art NFTs claimed:{" "}
+                  {totalCirculatingOneIsLoading ? (
                     <SpinnerRoundFilled color="#fff" />
                   ) : (
-                    totalClaimed?.toString()
+                    totalCirculatingOne?.toString()
+                  )}
+                </p>
+                <p className="text-lg font-medium">
+                  Membership NFTs claimed:{" "}
+                  {totalCirculatingTwoIsLoading ? (
+                    <SpinnerRoundFilled color="#fff" />
+                  ) : (
+                    totalCirculatingTwo?.toString()
                   )}
                 </p>
               </CardDescription>
@@ -107,22 +119,22 @@ const CypherChicksPage = () => {
               <CardDescription>
                 <p className="text-lg font-medium">
                   {address
-                    ? "Claim a Cypher Chicks NFT!"
+                    ? "Claim a Cypher Dudes NFT!"
                     : "Please connect your wallet to mint an NFT"}
                 </p>
               </CardDescription>
             </CardHeader>
             {address && (
-              <CardContent className="mt-2">
+              <CardContent className="flex flex-col gap-4 mt-2 text-center">
                 <Web3Button
                   style={{ width: "100%", transition: "all 0.2s ease-in-out" }}
                   className="hover:bg-slate-500 hover:text-white"
-                  contractAddress={ERC721A_CONTRACT}
-                  action={(contract) => contract.erc721.claim(1)}
+                  contractAddress={ERC1155_CONTRACT}
+                  action={(contract) => contract.erc1155.claim(0, 1)}
                   onSuccess={() =>
                     toast({
                       title: "NFT claimed!",
-                      description: "You claimed a Cypher Chicks NFT.",
+                      description: "You claimed a Cypher Dudes NFT.",
                     })
                   }
                   onError={() =>
@@ -132,7 +144,28 @@ const CypherChicksPage = () => {
                     })
                   }
                 >
-                  Mint
+                  Mint Art NFT
+                </Web3Button>
+
+                <Web3Button
+                  style={{ width: "100%", transition: "all 0.2s ease-in-out" }}
+                  className="hover:bg-slate-500 hover:text-white"
+                  contractAddress={ERC1155_CONTRACT}
+                  action={(contract) => contract.erc1155.claim(1, 1)}
+                  onSuccess={() =>
+                    toast({
+                      title: "NFT claimed!",
+                      description: "You claimed a Cypher Dudes NFT.",
+                    })
+                  }
+                  onError={() =>
+                    toast({
+                      title: "Error claiming NFT",
+                      description: "There was an error claiming your NFT.",
+                    })
+                  }
+                >
+                  Mint Membership NFT
                 </Web3Button>
               </CardContent>
             )}
@@ -164,14 +197,6 @@ const CypherChicksPage = () => {
                         <CardTitle>{nft.metadata.name}</CardTitle>
                         <CardDescription>{nft.metadata.description}</CardDescription>
                       </CardHeader>
-                      <CardContent>
-                        <Link
-                          href="/staking"
-                          className="lg:flex-1 text-black bg-white rounded-[8px] h-11 flex items-center justify-center transition-all ease-in-out hover:bg-slate-500 hover:text-white"
-                        >
-                          Stake &rarr;
-                        </Link>
-                      </CardContent>
                     </>
                   )}
                 </Card>
@@ -184,4 +209,4 @@ const CypherChicksPage = () => {
   );
 };
 
-export default CypherChicksPage;
+export default Erc1155Page;
