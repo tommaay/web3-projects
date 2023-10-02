@@ -14,7 +14,6 @@ import HeroCard from "components/HeroCard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "components/ui/Card";
 import { SpinnerRoundFilled } from "spinners-react";
 import { ERC1155_CONTRACT } from "@/constants";
-import Link from "next/link";
 import { useToast } from "components/ui/useToast";
 
 const Erc1155Page = () => {
