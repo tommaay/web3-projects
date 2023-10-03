@@ -13,7 +13,7 @@ function Navbar() {
           alt="Tomster logo"
           width={60}
           height={60}
-          className="hover:shadow-lg hover:shadow-white/10"
+          className="hover:shadow-lg hover:shadow-white/10 hover:scale-105"
         />
       </Link>
       <ConnectWallet />
