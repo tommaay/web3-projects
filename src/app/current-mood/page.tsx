@@ -104,7 +104,7 @@ const CurrentMoodPage = () => {
               <CardTitle className="mb-2">
                 <h3>Your current mood</h3>
               </CardTitle>
-              {yourMoodIsLoading || creatingMood || updatingMood ? (
+              {yourMoodIsLoading ? (
                 <SpinnerRoundFilled color="#fff" className="mx-auto mt-10" />
               ) : (
                 <CardDescription>
