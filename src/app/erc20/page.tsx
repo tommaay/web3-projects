@@ -101,7 +101,7 @@ const Erc20Page = () => {
                 </CardTitle>
                 <CardDescription>
                   <p className="text-lg font-medium">
-                    Earn TOM tokens by staking Cypher Chicks NFTs
+                    Earn TOMS tokens by staking Cypher Chicks NFTs
                   </p>
                 </CardDescription>
               </CardHeader>
