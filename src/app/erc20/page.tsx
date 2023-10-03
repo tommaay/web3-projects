@@ -79,6 +79,7 @@ const Erc20Page = () => {
                         className="hover:bg-slate-500 hover:text-white"
                         contractAddress={ERC20_CONTRACT}
                         action={(contract) => contract.erc20.burn(25)}
+                        isDisabled={!tokenBalance || Number(tokenBalance?.value) < 25}
                       >
                         Burn 25 tokens
                       </Web3Button>
