@@ -103,7 +103,6 @@ const StakingPage = () => {
           description: `Transaction hash: ${tx.hash}`,
         });
       } catch (e) {
-        console.log(e);
         toast({
           title: "Stake failed",
           description: "Something went wrong with the staking transaction",
