@@ -9,6 +9,7 @@ import { CURRENT_MOOD_CONTRACT } from "@/constants";
 import { useToast } from "components/ui/useToast";
 import { Input } from "components/ui/Input";
 import { Button } from "components/ui/Button";
+import FramerAnimate from "components/FramerAnimate";
 
 const CurrentMoodPage = () => {
   const address = useAddress();
@@ -74,78 +75,81 @@ const CurrentMoodPage = () => {
   };
 
   return (
-    <main className="container py-sm md:py-md">
-      <HeroCard
-        title="Record your current mood"
-        description="Write and store your mood on the blockchain."
-        imageUrl="/mood_in_grey_color.png"
-        altText="Anime girl thinking about her mood."
-        isLoading={false}
-      />
+    <FramerAnimate>
+      <main className="container py-sm md:py-md">
+        <HeroCard
+          title="Record your current mood"
+          description="Write and store your mood on the blockchain."
+          imageUrl="/mood_in_grey_color.png"
+          altText="Anime girl thinking about her mood."
+          isLoading={false}
+        />
 
-      <div className="grid gap-4 mt-12 md:gap-10 md:grid-cols-2">
-        <Card className="w-full h-full mx-auto rounded-xl">
-          <CardHeader>
-            <CardTitle className="mb-2">
-              <h3>{`The contract owner's mood`}</h3>
-            </CardTitle>
-            {isLoading ? (
-              <SpinnerRoundFilled color="#fff" className="mx-auto mt-10" />
-            ) : (
-              <CardDescription>
-                <p className="text-lg font-medium">{ownersMood}</p>
-              </CardDescription>
-            )}
-          </CardHeader>
-        </Card>
+        <div className="grid gap-4 mt-12 md:gap-10 md:grid-cols-2">
+          <Card className="w-full h-full mx-auto rounded-xl">
+            <CardHeader>
+              <CardTitle className="mb-2">
+                <h3>{`The contract owner's mood`}</h3>
+              </CardTitle>
+              {isLoading ? (
+                <SpinnerRoundFilled color="#fff" className="mx-auto mt-10" />
+              ) : (
+                <CardDescription>
+                  <p className="text-lg font-medium">{ownersMood}</p>
+                </CardDescription>
+              )}
+            </CardHeader>
+          </Card>
 
-        <Card className="w-full h-full mx-auto rounded-xl">
-          <CardHeader>
-            <CardTitle className="mb-2">
-              <h3>Your current mood</h3>
-            </CardTitle>
-            {isLoading || creatingMood || updatingMood ? (
-              <SpinnerRoundFilled color="#fff" className="mx-auto mt-10" />
-            ) : (
-              <CardDescription>
-                {address ? (
-                  <p
-                    className={`text-lg font-medium ${
-                      !yourMood ? "text-red-100/90" : "text-green-200"
-                    }`}
-                  >
-                    {yourMood ?? "No mood yet. Share and post your first mood"}
-                  </p>
-                ) : (
-                  <p className="text-lg font-medium">
-                    Connect your wallet to see and record your mood
-                  </p>
-                )}
-              </CardDescription>
-            )}
-          </CardHeader>
-        </Card>
-      </div>
+          <Card className="w-full h-full mx-auto rounded-xl">
+            <CardHeader>
+              <CardTitle className="mb-2">
+                <h3>Your current mood</h3>
+              </CardTitle>
+              {isLoading || creatingMood || updatingMood ? (
+                <SpinnerRoundFilled color="#fff" className="mx-auto mt-10" />
+              ) : (
+                <CardDescription>
+                  {address ? (
+                    <p
+                      className={`text-lg font-medium ${
+                        !yourMood ? "text-red-100/90" : "text-green-200"
+                      }`}
+                    >
+                      {yourMood ?? "No mood yet. Share and post your first mood"}
+                    </p>
+                  ) : (
+                    <p className="text-lg font-medium">
+                      Connect your wallet to see and record your mood
+                    </p>
+                  )}
+                </CardDescription>
+              )}
+            </CardHeader>
+          </Card>
+        </div>
 
-      {address && (
-        <form
-          className="flex max-w-2xl mx-auto mt-10 overflow-hidden border rounded-full border-white/50"
-          onSubmit={onSubmitMood}
-        >
-          <Input
-            className="w-3/4 p-4"
-            value={moodInput}
-            onChange={(e) => setMoodInput(e.target.value)}
-          />
-          <Button
-            className="w-1/4 bg-opacity-50 hover:bg-slate-500 hover:text-white"
-            onClick={onSubmitMood}
+        {address && (
+          <form
+            className="flex max-w-2xl mx-auto mt-10 overflow-hidden border rounded-full border-white/50"
+            onSubmit={onSubmitMood}
           >
-            {yourMood ? "Update mood" : "Record mood"}
-          </Button>
-        </form>
-      )}
-    </main>
+            <Input
+              className="w-3/4 p-4"
+              value={moodInput}
+              onChange={(e) => setMoodInput(e.target.value)}
+            />
+            <Button
+              className="w-1/4 text-lg bg-opacity-50 hover:bg-slate-500 hover:text-white"
+              onClick={onSubmitMood}
+              disabled={creatingMood || updatingMood}
+            >
+              {yourMood ? "Update mood" : "Record mood"}
+            </Button>
+          </form>
+        )}
+      </main>
+    </FramerAnimate>
   );
 };
 
