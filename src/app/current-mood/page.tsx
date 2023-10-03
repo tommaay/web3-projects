@@ -13,8 +13,8 @@ import FramerAnimate from "components/FramerAnimate";
 
 const CurrentMoodPage = () => {
   const address = useAddress();
-  const { contract, isLoading: contractIsLoading } = useContract(CURRENT_MOOD_CONTRACT);
-  const { data: owner, isLoading: ownerIsLoading } = useContractRead(contract, "owner");
+  const { contract } = useContract(CURRENT_MOOD_CONTRACT);
+  const { data: owner } = useContractRead(contract, "owner");
   const { data: ownersMood, isLoading: ownersMoodIsLoading } = useContractRead(
     contract,
     "getMood",
@@ -31,8 +31,6 @@ const CurrentMoodPage = () => {
     contract,
     "updateMood"
   );
-
-  const isLoading = contractIsLoading || ownerIsLoading || ownersMoodIsLoading || yourMoodIsLoading;
 
   const { toast } = useToast();
 
@@ -91,7 +89,7 @@ const CurrentMoodPage = () => {
               <CardTitle className="mb-2">
                 <h3>{`The contract owner's mood`}</h3>
               </CardTitle>
-              {isLoading ? (
+              {ownersMoodIsLoading ? (
                 <SpinnerRoundFilled color="#fff" className="mx-auto mt-10" />
               ) : (
                 <CardDescription>
@@ -106,7 +104,7 @@ const CurrentMoodPage = () => {
               <CardTitle className="mb-2">
                 <h3>Your current mood</h3>
               </CardTitle>
-              {isLoading || creatingMood || updatingMood ? (
+              {yourMoodIsLoading || creatingMood || updatingMood ? (
                 <SpinnerRoundFilled color="#fff" className="mx-auto mt-10" />
               ) : (
                 <CardDescription>
