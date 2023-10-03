@@ -52,11 +52,15 @@ const CoinFlipPage = () => {
                         description: "You chose Heads.",
                       });
                     }}
+                    onError={() => {
+                      toast({
+                        title: "Error",
+                        description: "There was an error with your transaction.",
+                      });
+                    }}
                     style={{
-                      display: "block",
                       transition: "all 0.2s ease-in-out",
                       flexGrow: "1",
-                      textAlign: "center",
                     }}
                     className="hover:bg-slate-500 hover:text-white"
                   >
@@ -71,11 +75,15 @@ const CoinFlipPage = () => {
                         description: "You chose Tails.",
                       });
                     }}
+                    onError={() => {
+                      toast({
+                        title: "Error",
+                        description: "There was an error with your transaction.",
+                      });
+                    }}
                     style={{
-                      display: "block",
                       transition: "all 0.2s ease-in-out",
                       flexGrow: "1",
-                      textAlign: "center",
                     }}
                     className="hover:bg-slate-500 hover:text-white"
                   >
