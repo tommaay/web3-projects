@@ -102,7 +102,7 @@ const CoinFlipPage = () => {
                       {COIN_FLIP[side]}
                     </span>{" "}
                     and{" "}
-                    <span className={!!side ? "text-green-500" : "text-red-500"}>
+                    <span className={result === 0 ? "text-green-500" : "text-red-500"}>
                       {FLIP_RESULT[result]}
                     </span>
                   </p>
