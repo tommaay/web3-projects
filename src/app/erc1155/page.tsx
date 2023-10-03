@@ -43,7 +43,7 @@ const Erc1155Page = () => {
         description="Cyperpunk Dudes. A test ERC1155 contract."
         imageUrl="/cypherpunk_guy_with_swords_1.png"
         altText="Cypher Dudes NFT"
-        isLoading={contractIsLoading || metadataIsLoading}
+        isLoading={false}
       />
 
       {isLoading ? (

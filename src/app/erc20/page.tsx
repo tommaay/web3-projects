@@ -32,7 +32,7 @@ const Erc20Page = () => {
         imageUrl="/tomster.svg"
         altText="Tomster's ERC20 token"
         style={{ objectFit: "contain", background: "#fff" }}
-        isLoading={contractIsLoading}
+        isLoading={false}
       />
 
       {address && isLoading ? (

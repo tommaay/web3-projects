@@ -28,7 +28,7 @@ const BuyCoffeePage = () => {
         description="Buy me a coffee by tipping me test Eth."
         imageUrl="/hot_cup_of_coffee.png"
         altText="Hot cup of coffee"
-        isLoading={isLoading}
+        isLoading={false}
       />
 
       {isLoading ? (

@@ -40,7 +40,7 @@ const CypherChicksPage = () => {
         description="Cypherpunk Chicks. A testnet ERC721A NFT contract."
         imageUrl="/cypherpunk_anime_girl_1.png"
         altText="Cypher Chicks NFT"
-        isLoading={contractIsLoading || metadataIsLoading}
+        isLoading={false}
       />
 
       {isLoading ? (

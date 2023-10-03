@@ -43,7 +43,7 @@ export default function Home() {
           href="/message-board"
           contractAddress={MESSAGE_BOARD_CONTRACT}
           title="Message Board"
-          description="A smart contract that allows uer to post messages to the smart contract."
+          description="A smart contract that allows user to post messages to the smart contract."
           imageUrl="/retro_message_board.png"
         />
         <ContractCard
