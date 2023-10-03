@@ -46,13 +46,18 @@ const CoinFlipPage = () => {
                   <Web3Button
                     contractAddress={COIN_FLIP_CONTRACT}
                     action={(contract) => contract.call("flipCoin", [0])}
-                    onSuccess={(result) => {
+                    onSuccess={() => {
                       toast({
                         title: "Coin flipped",
                         description: "You chose Heads.",
                       });
                     }}
-                    style={{ display: "block", transition: "all 0.2s ease-in-out", flexGrow: "1" }}
+                    style={{
+                      display: "block",
+                      transition: "all 0.2s ease-in-out",
+                      flexGrow: "1",
+                      textAlign: "center",
+                    }}
                     className="hover:bg-slate-500 hover:text-white"
                   >
                     Heads
@@ -60,13 +65,18 @@ const CoinFlipPage = () => {
                   <Web3Button
                     contractAddress={COIN_FLIP_CONTRACT}
                     action={(contract) => contract.call("flipCoin", [1])}
-                    onSuccess={(result) => {
+                    onSuccess={() => {
                       toast({
                         title: "Coin flipped",
                         description: "You chose Tails.",
                       });
                     }}
-                    style={{ display: "block", transition: "all 0.2s ease-in-out", flexGrow: "1" }}
+                    style={{
+                      display: "block",
+                      transition: "all 0.2s ease-in-out",
+                      flexGrow: "1",
+                      textAlign: "center",
+                    }}
                     className="hover:bg-slate-500 hover:text-white"
                   >
                     Tails
