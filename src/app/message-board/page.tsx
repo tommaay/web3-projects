@@ -57,7 +57,7 @@ const MessageBoardPage = () => {
           isLoading={false}
         />
 
-        {address && (
+        {address ? (
           <form
             className="flex max-w-2xl mx-auto mt-10 overflow-hidden border rounded-full border-white/50"
             onSubmit={onSubmitMood}
@@ -75,6 +75,10 @@ const MessageBoardPage = () => {
               {postingMessage ? "Posting..." : "Post"}
             </Button>
           </form>
+        ) : (
+          <h3 className="mx-auto mt-10 text-xl text-center md:text-2xl">
+            Connect your wallet to post a message to the smart contract
+          </h3>
         )}
 
         <div className="mt-10">
