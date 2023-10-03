@@ -11,7 +11,7 @@ import { Input } from "components/ui/Input";
 import { Button } from "components/ui/Button";
 import FramerAnimate from "components/FramerAnimate";
 
-const CurrentMoodPage = () => {
+const MessageBoardPage = () => {
   const address = useAddress();
   const { contract, isLoading: contractIsLoading } = useContract(MESSAGE_BOARD_CONTRACT);
   const { mutateAsync: postMessage, isLoading: postingMessage } = useContractWrite(
@@ -100,4 +100,4 @@ const CurrentMoodPage = () => {
   );
 };
 
-export default CurrentMoodPage;
+export default MessageBoardPage;
