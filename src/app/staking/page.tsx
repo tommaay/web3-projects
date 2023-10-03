@@ -70,7 +70,7 @@ const StakingPage = () => {
   const [userStakedNfts, setUserStakedNfts] = useState([]);
 
   useEffect(() => {
-    if (!stakedNfts?.length || !nfts?.length) return;
+    if (!stakedNfts?.length || !nfts?.length) setUserStakedNfts([]);
 
     const userStakedNfts = stakedNfts.map((tokenId: BigInt) => {
       return nfts?.find((nft) => nft.metadata.id === tokenId.toString()) || [];
@@ -255,13 +255,13 @@ const StakingPage = () => {
         )}
 
         <div className="grid gap-16 mt-10 md:grid-cols-2">
-          {!!userStakedNfts?.length && (
-            <Card className="rounded">
-              <CardHeader>
-                <CardTitle>
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl">Your Staked NFTs</h3>
-                </CardTitle>
-              </CardHeader>
+          <Card className="rounded">
+            <CardHeader>
+              <CardTitle>
+                <h3 className="text-2xl text-center sm:text-3xl md:text-4xl">Your Staked NFTs</h3>
+              </CardTitle>
+            </CardHeader>
+            {!!userStakedNfts?.length && (
               <CardContent>
                 <div className="grid grid-cols-1 gap-6 justify-items-center lg:grid-cols-2">
                   {userStakedNfts.map((nft: NFT) => {
@@ -308,16 +308,16 @@ const StakingPage = () => {
                   })}
                 </div>
               </CardContent>
-            </Card>
-          )}
+            )}
+          </Card>
 
-          {!!ownedNfts?.length && (
-            <Card className="rounded">
-              <CardHeader>
-                <CardTitle>
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl">Your Owned NFTs</h3>
-                </CardTitle>
-              </CardHeader>
+          <Card className="rounded">
+            <CardHeader>
+              <CardTitle>
+                <h3 className="text-2xl text-center sm:text-3xl md:text-4xl">Your Owned NFTs</h3>
+              </CardTitle>
+            </CardHeader>
+            {!!ownedNfts?.length && (
               <CardContent>
                 <div className="grid grid-cols-1 gap-6 justify-items-center lg:grid-cols-2">
                   {ownedNfts.map((nft) => {
@@ -364,8 +364,8 @@ const StakingPage = () => {
                   })}
                 </div>
               </CardContent>
-            </Card>
-          )}
+            )}
+          </Card>
         </div>
       </main>
     </FramerAnimate>
