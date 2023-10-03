@@ -59,7 +59,7 @@ const MessageBoardPage = () => {
 
         {address && (
           <form
-            className="flex max-w-2xl mx-auto my-10 overflow-hidden border rounded-full border-white/50"
+            className="flex max-w-2xl mx-auto mt-10 overflow-hidden border rounded-full border-white/50"
             onSubmit={onSubmitMood}
           >
             <Input
@@ -77,24 +77,26 @@ const MessageBoardPage = () => {
           </form>
         )}
 
-        {isLoading ? (
-          <SpinnerRoundFilled color="#fff" className="mx-auto mt-10" />
-        ) : (
-          messages?.map(({ data: { sender, message }, transaction: { blockHash } }) => {
-            return (
-              <Card className="w-full h-full max-w-2xl mx-auto mb-6 rounded-xl" key={blockHash}>
-                <CardHeader>
-                  <CardTitle className="mb-2">
-                    <h3 className="overflow-hidden text-base text-ellipsis">{sender}</h3>
-                  </CardTitle>
-                  <CardDescription>
-                    <p className="font-medium md:text-lg text-md">{message}</p>
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            );
-          })
-        )}
+        <div className="mt-10">
+          {isLoading ? (
+            <SpinnerRoundFilled color="#fff" className="mx-auto" />
+          ) : (
+            messages?.map(({ data: { sender, message }, transaction: { blockHash } }) => {
+              return (
+                <Card className="w-full h-full max-w-2xl mx-auto mb-6 rounded-xl" key={blockHash}>
+                  <CardHeader>
+                    <CardTitle className="mb-2">
+                      <h3 className="overflow-hidden text-base text-ellipsis">{sender}</h3>
+                    </CardTitle>
+                    <CardDescription>
+                      <p className="font-medium md:text-lg text-md">{message}</p>
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              );
+            })
+          )}
+        </div>
       </main>
     </FramerAnimate>
   );
