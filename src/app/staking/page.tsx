@@ -67,16 +67,17 @@ const StakingPage = () => {
   const stakeRewards = Number(rewards);
   const stakedNfts = useMemo(() => stakeInfo?.[0] || [], [stakeInfo]);
 
-  const [userStakedNfts, setUserStakedNfts] = useState([]);
+  const [userStakedNfts, setUserStakedNfts] = useState<NFT[] | []>([]);
 
   useEffect(() => {
     if (!stakedNfts?.length || !nfts?.length) setUserStakedNfts([]);
 
-    const userStakedNfts = stakedNfts.map((tokenId: BigInt) => {
-      return nfts?.find((nft) => nft.metadata.id === tokenId.toString()) || [];
-    });
+    const formatedStakedNfts = stakedNfts.map((tokenId: BigInt) => tokenId.toString());
+    const userStakedNfts = nfts?.filter((nft: NFT) =>
+      formatedStakedNfts.includes(nft?.metadata?.id)
+    );
 
-    setUserStakedNfts(userStakedNfts);
+    setUserStakedNfts(userStakedNfts || []);
   }, [nfts, stakedNfts]);
 
   const onStakeNft = async (tokenId: string) => {
@@ -134,7 +135,6 @@ const StakingPage = () => {
           description="Stake Cypher Chicks NFTs to earn TOMS tokens."
           imageUrl="/cypherpunk_anime_girl_3.png"
           altText="Cypher Chicks NFT"
-          style={{ objectFit: "contain", background: "#fff" }}
           isLoading={false}
         />
 
@@ -266,11 +266,11 @@ const StakingPage = () => {
                 <div className="grid grid-cols-1 gap-6 justify-items-center lg:grid-cols-2">
                   {userStakedNfts.map((nft: NFT) => {
                     return (
-                      <div key={nft.metadata.id}>
+                      <div key={nft?.metadata?.id}>
                         <Card className="h-full max-w-xs overflow-hidden rounded bg-zinc-900/20">
                           <div className="relative flex items-center justify-center h-48 md:h-64">
                             <ThirdwebNftMedia
-                              metadata={nft.metadata}
+                              metadata={nft?.metadata}
                               width="100%"
                               height="100%"
                               style={{
@@ -282,12 +282,12 @@ const StakingPage = () => {
                           {!nftsContractIsLoading && (
                             <>
                               <CardHeader>
-                                <CardTitle>{nft.metadata.name}</CardTitle>
-                                <CardDescription>{nft.metadata.description}</CardDescription>
+                                <CardTitle>{nft?.metadata?.name}</CardTitle>
+                                <CardDescription>{nft?.metadata?.description}</CardDescription>
                               </CardHeader>
                               <CardContent>
                                 <Web3Button
-                                  key={nft.metadata.id}
+                                  key={nft?.metadata?.id}
                                   style={{
                                     width: "100%",
                                     transition: "all 0.2s ease-in-out",
@@ -295,7 +295,7 @@ const StakingPage = () => {
                                   }}
                                   className="hover:bg-slate-500 hover:text-white"
                                   contractAddress={STAKING_CONTRACT}
-                                  action={() => onUnstakeNft(nft.metadata.id)}
+                                  action={() => onUnstakeNft(nft?.metadata?.id)}
                                 >
                                   Unstake
                                 </Web3Button>
@@ -322,11 +322,11 @@ const StakingPage = () => {
                 <div className="grid grid-cols-1 gap-6 justify-items-center lg:grid-cols-2">
                   {ownedNfts.map((nft) => {
                     return (
-                      <div key={nft.metadata.id}>
+                      <div key={nft?.metadata?.id}>
                         <Card className="h-full max-w-xs overflow-hidden rounded bg-zinc-900/20">
                           <div className="relative flex items-center justify-center h-48 md:h-64">
                             <ThirdwebNftMedia
-                              metadata={nft.metadata}
+                              metadata={nft?.metadata}
                               width="100%"
                               height="100%"
                               style={{
@@ -338,12 +338,12 @@ const StakingPage = () => {
                           {!nftsContractIsLoading && (
                             <>
                               <CardHeader>
-                                <CardTitle>{nft.metadata.name}</CardTitle>
-                                <CardDescription>{nft.metadata.description}</CardDescription>
+                                <CardTitle>{nft?.metadata?.name}</CardTitle>
+                                <CardDescription>{nft?.metadata?.description}</CardDescription>
                               </CardHeader>
                               <CardContent>
                                 <Web3Button
-                                  key={nft.metadata.id}
+                                  key={nft?.metadata?.id}
                                   style={{
                                     width: "100%",
                                     transition: "all 0.2s ease-in-out",
@@ -351,7 +351,7 @@ const StakingPage = () => {
                                   }}
                                   className="hover:bg-slate-500 hover:text-white"
                                   contractAddress={STAKING_CONTRACT}
-                                  action={() => onStakeNft(nft.metadata.id)}
+                                  action={() => onStakeNft(nft?.metadata?.id)}
                                 >
                                   Stake
                                 </Web3Button>
